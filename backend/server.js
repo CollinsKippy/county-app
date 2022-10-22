@@ -1,15 +1,19 @@
 const express = require('express');
 const dotenv = require('dotenv').config();
+const { errorHandler } = require('./middleware/errorMiddleware');
 
 const port = process.env.PORT || 5000;
 const app = express();
 
-app.get('/', (req, res) => {
-  return res.status(200).json({ message: 'Success, my people!' });
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/api/counties', (req, res) => {
-  return res.status(200).json({ message: 'Counties List' });
-});
+// console.log('env is: ', app.get('env'));
+
+app.use('/api/counties', require('./routes/countyRoutes'));
+app.use('/api/mountains', require('./routes/mountainRoutes'));
+app.use('/api/lakes', require('./routes/lakeRoutes'));
+
+app.use(errorHandler);
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
