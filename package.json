@@ -1,0 +1,25 @@
+{
+  "name": "county-app-mean",
+  "version": "1.0.0",
+  "description": "County Manager",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server",
+    "server": "nodemon backend/server"
+  },
+  "keywords": [
+    "County",
+    "Manager"
+  ],
+  "author": "Collins Kippy",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.6.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
