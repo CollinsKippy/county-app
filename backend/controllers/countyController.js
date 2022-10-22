@@ -5,8 +5,12 @@
  * @param {any} req - The request from the client
  * @param {any} res - The response from the server
  */
-const getCounties = (req, res) => {
-  return res.status(200).json({ message: 'Get Counties' });
+const getCounties = async (req, res) => {
+  try {
+    return res.status(200).json({ message: 'Get Counties' });
+  } catch (error) {
+    return res.status(500).json({ message: `${error.message}` });
+  }
 };
 
 /**
@@ -16,8 +20,12 @@ const getCounties = (req, res) => {
  * @param {any} req - The request from the client
  * @param {any} res - The response from the server
  */
-const getCounty = (req, res) => {
-  return res.status(200).json({ message: 'Get Single County' });
+const getCounty = async (req, res) => {
+  try {
+    return res.status(200).json({ message: 'Get Single County' });
+  } catch (error) {
+    throw new Error(`${error.message}`);
+  }
 };
 
 /**
@@ -27,9 +35,17 @@ const getCounty = (req, res) => {
  * @param {any} req - The request from the client
  * @param {any} res - The response from the server
  */
-const createCounty = (req, res) => {
-  throw new Error('Testing an Error');
-  // return res.status(200).json({ message: 'Create County' });
+const createCounty = async (req, res) => {
+  if (!req.body.name) {
+    res.status(400);
+    throw new Error('No county details provided.');
+  }
+
+  try {
+    return res.status(201).json({ message: 'Created County' });
+  } catch (error) {
+    throw new Error(`${error.message}`);
+  }
 };
 
 /**
@@ -39,8 +55,12 @@ const createCounty = (req, res) => {
  * @param {any} req - The request from the client
  * @param {any} res - The response from the server
  */
-const updateCounty = (req, res) => {
-  return res.status(200).json({ message: 'Update County' });
+const updateCounty = async (req, res) => {
+  try {
+    return res.status(200).json({ message: 'Update County' });
+  } catch (error) {
+    throw new Error(`${error.message}`);
+  }
 };
 
 /**
@@ -50,8 +70,12 @@ const updateCounty = (req, res) => {
  * @param {any} req - The request from the client
  * @param {any} res - The response from the server
  */
-const deleteCounty = (req, res) => {
-  return res.status(200).json({ message: 'Delete County' });
+const deleteCounty = async (req, res) => {
+  try {
+    return res.status(200).json({ message: 'Delete County' });
+  } catch (error) {
+    throw new Error(`${error.message}`);
+  }
 };
 
 module.exports = {
