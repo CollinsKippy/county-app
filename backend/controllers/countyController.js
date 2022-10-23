@@ -1,3 +1,5 @@
+const County = require('../models/County');
+
 /**
  * Returns List of Counties.
  * @route /api/counties
@@ -7,7 +9,9 @@
  */
 const getCounties = async (req, res) => {
   try {
-    return res.status(200).json({ message: 'Get Counties' });
+    const counties = await County.find();
+
+    return res.status(200).json(counties);
   } catch (error) {
     return res.status(500).json({ message: `${error.message}` });
   }
@@ -21,8 +25,21 @@ const getCounties = async (req, res) => {
  * @param {any} res - The response from the server
  */
 const getCounty = async (req, res) => {
+  const id = req.params.id;
+
+  if (!id) {
+    res.status(400);
+    throw new Error('Bad Request');
+  }
+
   try {
-    return res.status(200).json({ message: 'Get Single County' });
+    const county = await County.findById(id);
+    if (!county) {
+      res.status(404);
+      throw new Error('County not found.');
+    }
+
+    return res.status(200).json(county);
   } catch (error) {
     throw new Error(`${error.message}`);
   }
@@ -36,13 +53,17 @@ const getCounty = async (req, res) => {
  * @param {any} res - The response from the server
  */
 const createCounty = async (req, res) => {
-  if (!req.body.name) {
+  const countyName = req.body.name;
+
+  if (!countyName) {
     res.status(400);
-    throw new Error('No county details provided.');
+    throw new Error('No county name provided.');
   }
 
   try {
-    return res.status(201).json({ message: 'Created County' });
+    const newCounty = await County.create({ name: countyName });
+
+    return res.status(201).json(newCounty);
   } catch (error) {
     throw new Error(`${error.message}`);
   }
@@ -54,10 +75,28 @@ const createCounty = async (req, res) => {
  * @method PUT
  * @param {any} req - The request from the client
  * @param {any} res - The response from the server
+ * @data req.body has the data
  */
 const updateCounty = async (req, res) => {
+  const id = req.params.id;
+
+  if (!id) {
+    res.status(400);
+    throw new Error(`Bad Request`);
+  }
+
   try {
-    return res.status(200).json({ message: 'Update County' });
+    const county = await County.findById(id);
+    if (!county) {
+      res.status(404);
+      throw new Error(`County with id ${id} not found`);
+    }
+
+    const updatedGoal = await County.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+
+    return res.status(200).json(updatedGoal);
   } catch (error) {
     throw new Error(`${error.message}`);
   }
@@ -71,8 +110,23 @@ const updateCounty = async (req, res) => {
  * @param {any} res - The response from the server
  */
 const deleteCounty = async (req, res) => {
+  const id = req.params.id;
+
+  if (!id) {
+    res.status(400);
+    throw new Error(`Bad Request.`);
+  }
+
   try {
-    return res.status(200).json({ message: 'Delete County' });
+    const county = await County.findById(id);
+    if (!county) {
+      res.status(404);
+      throw new Error(`County with ${id} not found.`);
+    }
+
+    await County.deleteOne(county);
+
+    return res.status(200).json({ id });
   } catch (error) {
     throw new Error(`${error.message}`);
   }
