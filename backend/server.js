@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('combined'));
 
-// console.log('MONGO_URI is: ', process.env.MONGO_URI);
+console.log(`Env is: ${process.env.NODE_ENV}`.italic);
 
 app.use('/api/counties', require('./routes/countyRoutes'));
 app.use('/api/mountains', require('./routes/mountainRoutes'));

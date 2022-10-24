@@ -41,7 +41,7 @@ const getCounty = async (req, res) => {
 
     return res.status(200).json(county);
   } catch (error) {
-    throw new Error(`${error.message}`);
+    return res.status(500).json({ message: `${error.message}` });
   }
 };
 
@@ -65,7 +65,7 @@ const createCounty = async (req, res) => {
 
     return res.status(201).json(newCounty);
   } catch (error) {
-    throw new Error(`${error.message}`);
+    return res.status(500).json({ message: `${error.message}` });
   }
 };
 
@@ -98,7 +98,7 @@ const updateCounty = async (req, res) => {
 
     return res.status(200).json(updatedGoal);
   } catch (error) {
-    throw new Error(`${error.message}`);
+    return res.status(500).json({ message: `${error.message}` });
   }
 };
 
@@ -128,7 +128,7 @@ const deleteCounty = async (req, res) => {
 
     return res.status(200).json({ id });
   } catch (error) {
-    throw new Error(`${error.message}`);
+    return res.status(500).json({ message: `${error.message}` });
   }
 };
 
