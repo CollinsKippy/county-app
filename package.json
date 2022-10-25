@@ -1,5 +1,5 @@
 {
-  "name": "county-app-mean",
+  "name": "county-app",
   "version": "1.0.0",
   "description": "County Manager",
   "main": "server.js",
