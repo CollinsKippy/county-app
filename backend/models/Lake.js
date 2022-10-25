@@ -4,9 +4,11 @@ const lakeSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, 'Lake name is required.'],
+      required: [true, 'Name of Lake is re'],
     },
-    location: String,
+    location: {
+      type: String,
+    },
   },
   {
     timestamps: true,

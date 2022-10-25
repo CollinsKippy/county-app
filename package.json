@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node backend/server",
-    "server": "nodemon backend/server"
+    "server": "nodemon backend/server",
+    "eslint": "npx eslint backend/**"
   },
   "keywords": [
     "County",
@@ -21,6 +22,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "eslint": "^8.26.0",
     "jsdoc": "^3.6.11",
     "nodemon": "^2.0.20"
   }
